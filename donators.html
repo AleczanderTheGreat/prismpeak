@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation List</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 50px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Donation List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Donor Name</th>
+                    <th>Donation Amount</th>
+                </tr>
+            </thead>
+            <tbody id="donationList">
+                <!-- Donation items will be appended here -->
+            </tbody>
+        </table>
+        <button onclick="window.location.href='donation.html'">Go Back to Donation Form</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const donations = JSON.parse(localStorage.getItem('donations')) || [];
+            const donationList = document.getElementById('donationList');
+
+            function updateDonationList() {
+                donationList.innerHTML = '';
+                donations.forEach(donation => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${donation.name}</td>
+                        <td>$${donation.amount}</td>
+                    `;
+                    donationList.appendChild(row);
+                });
+            }
+
+            updateDonationList();
+        });
+    </script>
+</body>
+</html>
